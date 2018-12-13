@@ -18,7 +18,6 @@ export default () => {
     process: ({ config = {} }, inputs = {}) => {
       const { check } = config;
       const { checkInput = "", trueInput, falseInput } = inputs;
-      console.log(checkInput.toString(), check);
       if (checkInput.toString() === check) return trueInput;
       return falseInput;
     },

@@ -14,35 +14,34 @@ const Config = () => {
         return (
           <div className="config">
             <h2>Config</h2>
-            {compDef.config.map(c => (
-              <div key={c.id}>
-                <label>
-                  {c.title}
-                  <div>
-                    <input
-                      {...c.props}
-                      checked={
-                        c.props.type === "checkbox" ? compConfig[c.id] : null
-                      }
-                      value={
-                        c.props.type !== "checkbox"
-                          ? compConfig[c.id] || ""
-                          : null
-                      }
-                      onChange={e =>
-                        setConfig(
-                          comp.id,
-                          c.id,
-                          e.target.value === "on"
-                            ? e.target.checked
-                            : e.target.value
-                        )
-                      }
-                    />
-                  </div>
-                </label>
-              </div>
-            ))}
+            {compDef.config.map(c => {
+              const inputProps = {
+                [c.props.type === "checkbox" ? "checked" : "value"]:
+                  compConfig[c.id] || c.props.type === "checkbox" ? false : ""
+              };
+              return (
+                <div key={c.id}>
+                  <label>
+                    {c.title}
+                    <div>
+                      <input
+                        {...c.props}
+                        {...inputProps}
+                        onChange={e =>
+                          setConfig(
+                            comp.id,
+                            c.id,
+                            e.target.value === "on"
+                              ? e.target.checked
+                              : e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </label>
+                </div>
+              );
+            })}
           </div>
         );
       }}

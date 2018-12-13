@@ -12,7 +12,6 @@ export default () => {
     name: "PrevValue",
     component: PrevValue,
     process: (comp, inputs) => {
-      console.log(this);
       this.a.prevValues = this.a.prevValues || {};
       this.a.nextValues = this.a.nextValues || {};
       this.a.nextValues[comp.id] = this.a.nextValues[comp.id] || 0;

@@ -9,7 +9,6 @@ const Canvas = props => {
     <DiagramContext.Consumer>
       {state => {
         const { dimensions, updateDimensions } = state;
-        console.log(state.selectedComponent);
         return (
           <Measure
             bounds
