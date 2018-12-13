@@ -21,7 +21,14 @@ const Config = () => {
                   <div>
                     <input
                       {...c.props}
-                      value={compConfig[c.id] || ""}
+                      checked={
+                        c.props.type === "checkbox" ? compConfig[c.id] : null
+                      }
+                      value={
+                        c.props.type !== "checkbox"
+                          ? compConfig[c.id] || ""
+                          : null
+                      }
                       onChange={e =>
                         setConfig(
                           comp.id,
