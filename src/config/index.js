@@ -22,7 +22,15 @@ const Config = () => {
                     <input
                       {...c.props}
                       value={compConfig[c.id] || ""}
-                      onChange={e => setConfig(comp.id, c.id, e.target.value)}
+                      onChange={e =>
+                        setConfig(
+                          comp.id,
+                          c.id,
+                          e.target.value === "on"
+                            ? e.target.checked
+                            : e.target.value
+                        )
+                      }
                     />
                   </div>
                 </label>
