@@ -1,22 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
-import styles from './styles.css'
-
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
-
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
-}
+export {
+  default as registerComponent,
+  registeredComponents
+} from "./registerComponent";
+export { default as Library } from "./library";
+export { default as Config } from "./config";
+export { default as DiagramContext } from "./helpers/diagramContext";
+export { default as DiagramProvider } from "./helpers/diagramProvider";
+export { default as Canvas } from "./canvas";
+export * from "./components";

@@ -23,8 +23,9 @@
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-color": "^2.14.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
@@ -57,5 +58,9 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "centered-pan-zoom": "^2.0.0",
+    "react-measure": "^2.1.3"
+  }
 }

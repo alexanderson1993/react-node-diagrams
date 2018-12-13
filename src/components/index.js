@@ -1,0 +1,15 @@
+export { default as registerInput } from "./input";
+export { default as registerOutput } from "./output";
+export { default as registerDivide } from "./operations/divide";
+export { default as registerMultiply } from "./operations/multiply";
+export { default as registerRound } from "./operations/round";
+export { default as registerSubtract } from "./operations/subtract";
+export { default as registerSum } from "./operations/sum";
+export { default as registerColor } from "./color";
+// export { default as registerLerp } from "./lerp";
+export { default as registerMode } from "./mode";
+export { default as registerOscillator } from "./oscillator";
+// export { default as registerPrevValue } from "./prevValue";
+export { default as registerRandom } from "./random";
+export { default as registerRange } from "./range";
+export { default as registerSwitch } from "./switch";
