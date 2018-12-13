@@ -7,11 +7,11 @@ import uuid from "../helpers/uuid";
 
 class InnerCanvas extends Component {
   state = { draggingConnection: null, nodes: {} };
-  dragConnection = (id, nodeId, position, which) => {
+  dragConnection = (id, nodeId, position, which, type) => {
     document.addEventListener("mousemove", this.draggingConnection);
     document.addEventListener("mouseup", this.dropConnection);
     this.setState({
-      draggingConnection: { id, nodeId, position, which }
+      draggingConnection: { id, nodeId, position, which, type }
     });
   };
   draggingConnection = e => {
@@ -25,22 +25,24 @@ class InnerCanvas extends Component {
     });
   };
   dropConnection = e => {
-    const { id, nodeId, which } = this.state.draggingConnection;
+    const { id, nodeId, which, type } = this.state.draggingConnection;
     if (e.target.dataset.connector === "true") {
       if (!e.target.dataset[which]) {
         const data = { ...e.target.dataset };
-        if (which === "input") {
-          this.props.addConnection({
-            id: uuid(),
-            from: { id: data.id, nodeId: data.node },
-            to: { id, nodeId }
-          });
-        } else {
-          this.props.addConnection({
-            id: uuid(),
-            from: { id, nodeId },
-            to: { id: data.id, nodeId: data.node }
-          });
+        if (type === data.type || type === "Any" || data.type === "Any") {
+          if (which === "input") {
+            this.props.addConnection({
+              id: uuid(),
+              from: { id: data.id, nodeId: data.node },
+              to: { id, nodeId }
+            });
+          } else {
+            this.props.addConnection({
+              id: uuid(),
+              from: { id, nodeId },
+              to: { id: data.id, nodeId: data.node }
+            });
+          }
         }
       }
     }

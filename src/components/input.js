@@ -36,6 +36,13 @@ export default () => {
           type: "text",
           placeholder: "Appears above component"
         }
+      },
+      {
+        id: "test",
+        title: "test",
+        props: {
+          type: "checkbox"
+        }
       }
     ]
   });

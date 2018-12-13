@@ -15,10 +15,11 @@ const Config = () => {
           <div className="config">
             <h2>Config</h2>
             {compDef.config.map(c => {
+              const val = compConfig[c.id];
               const inputProps = {
-                [c.props.type === "checkbox" ? "checked" : "value"]:
-                  compConfig[c.id] || c.props.type === "checkbox" ? false : ""
+                [c.props.type === "checkbox" ? "checked" : "value"]: val
               };
+              console.log(inputProps, compConfig, c.id, compConfig[c.id], val);
               return (
                 <div key={c.id}>
                   <label>
@@ -31,7 +32,7 @@ const Config = () => {
                           setConfig(
                             comp.id,
                             c.id,
-                            e.target.value === "on"
+                            c.props.type === "checkbox"
                               ? e.target.checked
                               : e.target.value
                           )

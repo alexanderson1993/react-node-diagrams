@@ -28,8 +28,8 @@
   right: -8px;
 }
 .connector {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
   background-color: transparent;
   border: solid 2px #666;
   border-radius: 50%;

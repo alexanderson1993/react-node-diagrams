@@ -122,11 +122,11 @@ export default class Comp extends Component {
     document.removeEventListener("mousemove", this.mouseMove);
     document.removeEventListener("mouseup", this.mouseUp);
   };
-  beginDrag = (e, ioId, io) => {
+  beginDrag = (e, ioId, io, type) => {
     e.preventDefault();
     e.stopPropagation();
     const { beginDrag, id } = this.props;
-    beginDrag(id, ioId, { x: e.clientX, y: e.clientY }, io);
+    beginDrag(id, ioId, { x: e.clientX, y: e.clientY }, io, type);
   };
   render() {
     const {
@@ -173,7 +173,7 @@ export default class Comp extends Component {
               data-input="true"
               data-node={i.id}
               data-type={i.type}
-              onMouseDown={e => this.beginDrag(e, i.id, "input")}
+              onMouseDown={e => this.beginDrag(e, i.id, "input", i.type)}
             />
           ))}
         </div>
@@ -182,6 +182,7 @@ export default class Comp extends Component {
             <div
               key={`output-${id}-${i.id}`}
               ref={this.allRefs[`output-${id}-${i.id}`]}
+              style={{ backgroundColor: i.color }}
               title={i.title}
               className={`${styles.connector} ${styles.output}`}
               data-id={id}
@@ -189,7 +190,7 @@ export default class Comp extends Component {
               data-output="true"
               data-node={i.id}
               data-type={i.type}
-              onMouseDown={e => this.beginDrag(e, i.id, "output")}
+              onMouseDown={e => this.beginDrag(e, i.id, "output", i.type)}
             />
           ))}
         </div>
