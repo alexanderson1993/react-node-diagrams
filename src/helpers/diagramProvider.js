@@ -12,15 +12,18 @@ class DiagramProvider extends Component {
       startLibraryDrag: this.dragComponent,
       resetCanvas: () => this.setState({ reset: Math.random() }),
       clearCanvas: () =>
-        this.setState({
-          components: [],
-          connections: [],
-          config: {},
-          values: {}
-        }),
-      components: [],
-      connections: [],
-      values: {},
+        this.setState(
+          {
+            components: [],
+            connections: [],
+            config: {},
+            values: {}
+          },
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        ),
+      components: props.components || [],
+      connections: props.connections || [],
+      values: props.values || {},
       draggingComponent: null,
       view: {
         x: 0,
@@ -36,22 +39,28 @@ class DiagramProvider extends Component {
         this.setState({ view });
       },
       updateComponentPosition: (id, position) =>
-        this.setState(state => ({
-          components: state.components.map(c =>
-            c.id === id ? { ...c, position } : c
-          )
-        })),
+        this.setState(
+          state => ({
+            components: state.components.map(c =>
+              c.id === id ? { ...c, position } : c
+            )
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        ),
       removeComponent: id =>
-        this.setState(state => ({
-          components: state.components.filter(c => c.id !== id),
-          values: calculateValues(
-            state.components.filter(c => c.id !== id),
-            state.connections,
-            state.values,
-            state.config
-          )
-          // TODO: Also remove any connections
-        })),
+        this.setState(
+          state => ({
+            components: state.components.filter(c => c.id !== id),
+            values: calculateValues(
+              state.components.filter(c => c.id !== id),
+              state.connections,
+              state.values,
+              state.config
+            )
+            // TODO: Also remove any connections
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        ),
       addConnection: connection => {
         if (
           this.state.connections.find(
@@ -62,44 +71,65 @@ class DiagramProvider extends Component {
         ) {
           return;
         }
-        this.setState(state => ({
-          connections: state.connections.concat(connection),
-          values: calculateValues(
-            this.state.components,
-            state.connections.concat(connection),
-            state.values,
-            state.config
-          )
-        }));
+        this.setState(
+          state => ({
+            connections: state.connections.concat(connection),
+            values: calculateValues(
+              this.state.components,
+              state.connections.concat(connection),
+              state.values,
+              state.config
+            )
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        );
       },
       removeConnection: id =>
-        this.setState(state => ({
-          connections: state.connections.filter(c => c.id !== id),
-          values: calculateValues(
-            this.state.components,
-            state.connections.filter(c => c.id !== id),
-            state.values,
-            state.config
-          )
-        })),
+        this.setState(
+          state => ({
+            connections: state.connections.filter(c => c.id !== id),
+            values: calculateValues(
+              this.state.components,
+              state.connections.filter(c => c.id !== id),
+              state.values,
+              state.config
+            )
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        ),
       updateValue: (id, value) => {
-        this.setState(state => ({
-          values: calculateValues(
-            this.state.components,
-            this.state.connections,
-            { ...this.state.values, [id]: value },
-            state.config
-          )
-        }));
+        this.setState(
+          state => ({
+            values: calculateValues(
+              this.state.components,
+              this.state.connections,
+              { ...this.state.values, [id]: value },
+              state.config
+            )
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        );
       },
-      config: {},
+      config: props.config || {},
       setConfig: (id, key, value) => {
-        this.setState(state => ({
-          config: {
-            ...state.config,
-            [id]: { ...state.config[id], [key]: value }
-          }
-        }));
+        this.setState(
+          state => ({
+            values: calculateValues(
+              this.state.components,
+              this.state.connections,
+              this.state.values,
+              {
+                ...state.config,
+                [id]: { ...state.config[id], [key]: value }
+              }
+            ),
+            config: {
+              ...state.config,
+              [id]: { ...state.config[id], [key]: value }
+            }
+          }),
+          () => this.props.onUpdate && this.props.onUpdate(this.state)
+        );
       }
     };
   }
@@ -123,8 +153,14 @@ class DiagramProvider extends Component {
   };
 
   static propTypes = {
-    children: propTypes.node
+    children: propTypes.node,
+    components: propTypes.array,
+    connections: propTypes.array,
+    values: propTypes.object,
+    config: propTypes.object,
+    onUpdate: propTypes.func
   };
+
   render() {
     const { draggingComponent, view, dimensions } = this.state;
     return (
