@@ -113,15 +113,18 @@ class InnerCanvas extends Component {
               updateNodePositions={this.updateNodePositions}
             />
           )}
-          {connections.map(c => (
-            <Connection
-              key={`${c.from.id}-${c.from.node}-${c.to.id}-${c.to.node}`}
-              nodes={nodes}
-              view={view}
-              remove={removeConnection}
-              {...c}
-            />
-          ))}
+          {connections.map(
+            c =>
+              console.log(c) || (
+                <Connection
+                  key={`${c.from.id}-${c.from.node}-${c.to.id}-${c.to.node}`}
+                  nodes={nodes}
+                  view={view}
+                  remove={removeConnection}
+                  {...c}
+                />
+              )
+          )}
         </svg>
       </PanZoomElement>
     );

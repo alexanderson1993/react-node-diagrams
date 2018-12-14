@@ -60,7 +60,7 @@ const Library = ({ renderButtons }) => {
               <button onClick={clearCanvas} style={{ marginBottom: "10px" }}>
                 Clear Canvas
               </button>
-              <button onClick={resetCanvas}>Reset Zoom</button>
+              <button onClick={resetCanvas}>Reset Pan</button>
             </Fragment>
           )}
         </div>

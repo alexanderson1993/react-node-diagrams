@@ -34,6 +34,7 @@
   border: solid 2px #666;
   border-radius: 50%;
   cursor: pointer;
+  box-sizing: border-box;
 }
 .connections {
   z-index: -1;

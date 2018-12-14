@@ -11,7 +11,8 @@ export default class Comp extends Component {
     config: PropTypes.object,
     updateComponentPosition: PropTypes.func.isRequired,
     selected: PropTypes.bool,
-    scale: PropTypes.number
+    scale: PropTypes.number,
+    view: PropTypes.object
   };
   constructor(props) {
     super(props);
@@ -61,16 +62,20 @@ export default class Comp extends Component {
     return true;
   };
   performNodeUpdate = () => {
-    let { updateNodePositions } = this.props;
+    let {
+      updateNodePositions,
+      view: { x, y }
+    } = this.props;
     const nodes = Object.entries(this.allRefs).reduce(
       (prev, [id, { current }]) => {
         if (!current) return prev;
         const rect = current.getBoundingClientRect();
+        console.log(x, rect.width / 2 + rect.left);
         return {
           ...prev,
           [id]: {
-            x: rect.width / 2 + rect.left,
-            y: rect.height / 2 + rect.top
+            x: rect.width / 2 + rect.left - x,
+            y: rect.height / 2 + rect.top - y
           }
         };
       },

@@ -8,7 +8,7 @@ const Canvas = props => {
   return (
     <DiagramContext.Consumer>
       {state => {
-        const { dimensions, updateDimensions } = state;
+        const { dimensions, updateDimensions, view } = state;
         return (
           <Measure
             bounds
@@ -20,6 +20,7 @@ const Canvas = props => {
               <div
                 ref={measureRef}
                 className={styles["canvas-container"]}
+                style={{ backgroundPosition: `${view.x}px ${view.y}px` }}
                 onClick={() => state.updateSelectedComponent(null)}
               >
                 {dimensions && <InnerCanvas {...state} />}

@@ -51,9 +51,12 @@ class DiagramProvider extends Component {
         this.setState(
           state => ({
             components: state.components.filter(c => c.id !== id),
+            connections: state.connections.filter(
+              c => c.to.id !== id && c.from.id !== id
+            ),
             values: calculateValues(
               state.components.filter(c => c.id !== id),
-              state.connections,
+              state.connections.filter(c => c.to.id !== id && c.from.id !== id),
               state.values,
               state.config
             )
