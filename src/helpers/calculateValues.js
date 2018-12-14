@@ -19,7 +19,7 @@ export default function calculateValues(
   config = {}
 ) {
   const values = [];
-  const sortedComps = components.sort((a, b) => {
+  const sortedComps = components.concat().sort((a, b) => {
     if (
       compList.indexOf(a.component.name) > compList.indexOf(b.component.name)
     ) {
