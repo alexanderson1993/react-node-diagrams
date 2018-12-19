@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import registerComponent from "../registerComponent";
 
 function stringify(data) {
   let cache = [];
@@ -27,26 +26,22 @@ Output.propTypes = {
   value: PropTypes.any
 };
 
-export default () => {
-  registerComponent({
-    name: "Output",
-    component: Output,
-    process: (comp, inputs) => {
-      return inputs.outputValue;
-    },
-    inputs: [
-      { id: "outputValue", title: "Value to be displayed", type: "Any" }
-    ],
-    outputs: [],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
+export default {
+  name: "Output",
+  component: Output,
+  process: (comp, inputs) => {
+    return inputs.outputValue;
+  },
+  inputs: [{ id: "outputValue", title: "Value to be displayed", type: "Any" }],
+  outputs: [],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ]
-  });
+    }
+  ]
 };

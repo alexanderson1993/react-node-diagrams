@@ -1,23 +1,21 @@
-import { registeredComponents } from "../registerComponent";
-
-const compList = registeredComponents
-  .sort(a => {
-    if (a.outputs.length === 0) {
-      return -1;
-    }
-    if (a.inputs.length > 0) {
-      return -1;
-    }
-    return 0;
-  })
-  .map(c => c.name);
-
 export default function calculateValues(
   components,
   connections,
   inputValues,
-  config = {}
+  config = {},
+  registeredComponents
 ) {
+  const compList = registeredComponents
+    .sort(a => {
+      if (a.outputs.length === 0) {
+        return -1;
+      }
+      if (a.inputs.length > 0) {
+        return -1;
+      }
+      return 0;
+    })
+    .map(c => c.name);
   const values = [];
   const sortedComps = components.concat().sort((a, b) => {
     if (

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import debounce from "../helpers/debounce";
 import styles from "../compStyles.css";
-import { registeredComponents } from "../registerComponent";
 
 export default class Comp extends Component {
   static propTypes = {
@@ -16,7 +15,7 @@ export default class Comp extends Component {
   };
   constructor(props) {
     super(props);
-    const { id, component } = this.props;
+    const { id, component, registeredComponents } = this.props;
     const RenderComp = registeredComponents.find(
       c => c.name === component.name
     );
@@ -140,7 +139,8 @@ export default class Comp extends Component {
       selected,
       position: { x, y },
       component,
-      updateValue = () => {}
+      updateValue = () => {},
+      registeredComponents
     } = this.props;
     const RenderComp = registeredComponents.find(
       c => c.name === component.name

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import registerComponent from "../registerComponent";
+
 import PropTypes from "prop-types";
 
 class Oscillator extends Component {
@@ -46,32 +46,30 @@ Oscillator.propTypes = {
   value: PropTypes.any
 };
 
-export default () => {
-  registerComponent({
-    name: "Oscillator",
-    component: Oscillator,
-    category: "Generators",
-    inputs: [],
-    outputs: [{ id: "level", title: "Ocillator Output", type: "Any" }],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
-      },
-      {
-        id: "rate",
-        title: "Rate",
-        props: {
-          type: "range",
-          min: "0",
-          max: "99",
-          step: "1"
-        }
+export default {
+  name: "Oscillator",
+  component: Oscillator,
+  category: "Generators",
+  inputs: [],
+  outputs: [{ id: "level", title: "Ocillator Output", type: "Any" }],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ]
-  });
+    },
+    {
+      id: "rate",
+      title: "Rate",
+      props: {
+        type: "range",
+        min: "0",
+        max: "99",
+        step: "1"
+      }
+    }
+  ]
 };

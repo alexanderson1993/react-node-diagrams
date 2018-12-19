@@ -15,8 +15,10 @@ npm install --save react-node-diagrams
 See `/src/example` for a demo app.
 
 Before using the node diagram, you have to register the components that will be
-used. You can create your own custom components or register the default
-components.
+used using the registeredComponents prop of the DiagramProvider component. The
+prop takes either an array of components or a keyed object (which it runs
+`Object.values` on). You can create your own custom components or register the
+default components.
 
 Be sure to wrap all of the components that React Node Diagrams exports in the
 `<DiagramProvider>`
@@ -34,40 +36,13 @@ import {
   DiagramContext,
   Canvas,
   Config,
-  registerInput,
-  registerOutput,
-  registerDivide,
-  registerMultiply,
-  registerRound,
-  registerSubtract,
-  registerSum,
-  registerColor,
-  registerLerp,
-  registerMode,
-  registerOscillator,
-  registerRandom,
-  registerRange
+  defaultComponents
 } from "react-node-diagrams";
-
-// Import and execute some default registrations
-registerInput();
-registerOutput();
-registerSum();
-registerSubtract();
-registerMultiply();
-registerDivide();
-registerRound();
-registerColor();
-registerLerp();
-registerMode();
-registerOscillator();
-registerRandom();
-registerRange();
 
 export default class App extends Component {
   render() {
     return (
-      <DiagramProvider>
+      <DiagramProvider registeredComponents={defaultComponents}>
         <div style={{ height: "100%", display: "flex" }}>
           <div style={{ flex: 1 }} className="component-area">
             <DiagramContext.Consumer>

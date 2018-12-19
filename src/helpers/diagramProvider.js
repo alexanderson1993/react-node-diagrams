@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { registeredComponents } from "../registerComponent";
 import DiagramContext from "./diagramContext";
 import propTypes from "prop-types";
 import Dragger from "./Dragger";
@@ -58,9 +57,9 @@ class DiagramProvider extends Component {
               state.components.filter(c => c.id !== id),
               state.connections.filter(c => c.to.id !== id && c.from.id !== id),
               state.values,
-              state.config
+              state.config,
+              state.registeredComponents
             )
-            // TODO: Also remove any connections
           }),
           () => this.props.onUpdate && this.props.onUpdate(this.state)
         ),
@@ -81,7 +80,8 @@ class DiagramProvider extends Component {
               this.state.components,
               state.connections.concat(connection),
               state.values,
-              state.config
+              state.config,
+              state.registeredComponents
             )
           }),
           () => this.props.onUpdate && this.props.onUpdate(this.state)
@@ -95,7 +95,8 @@ class DiagramProvider extends Component {
               this.state.components,
               state.connections.filter(c => c.id !== id),
               state.values,
-              state.config
+              state.config,
+              state.registeredComponents
             )
           }),
           () => this.props.onUpdate && this.props.onUpdate(this.state)
@@ -107,7 +108,8 @@ class DiagramProvider extends Component {
               this.state.components,
               this.state.connections,
               { ...this.state.values, [id]: value },
-              state.config
+              state.config,
+              state.registeredComponents
             )
           }),
           () => this.props.onUpdate && this.props.onUpdate(this.state)
@@ -124,7 +126,8 @@ class DiagramProvider extends Component {
               {
                 ...state.config,
                 [id]: { ...state.config[id], [key]: value }
-              }
+              },
+              state.registeredComponents
             ),
             config: {
               ...state.config,
@@ -133,7 +136,12 @@ class DiagramProvider extends Component {
           }),
           () => this.props.onUpdate && this.props.onUpdate(this.state)
         );
-      }
+      },
+      registeredComponents: props.registeredComponents
+        ? props.registeredComponents.length
+          ? props.registeredComponents
+          : Object.values(props.registeredComponents)
+        : []
     };
   }
   dragComponent = e => {
@@ -143,7 +151,9 @@ class DiagramProvider extends Component {
         "Cannot drag a component without the data-component attribute"
       );
     }
-    const Comp = registeredComponents.find(c => c.name === component);
+    const Comp = this.state.registeredComponents.find(
+      c => c.name === component
+    );
     if (!Comp) {
       throw new Error("Cannot drag a component that hasn't been registered.");
     }
@@ -175,6 +185,7 @@ class DiagramProvider extends Component {
           <Dragger
             {...draggingComponent}
             view={view}
+            registeredComponents={this.state.registeredComponents}
             canvasDimensions={dimensions}
             removeDragger={() => this.setState({ draggingComponent: null })}
             addComponent={component =>
@@ -185,7 +196,8 @@ class DiagramProvider extends Component {
                   [...state.components, component],
                   state.connections,
                   state.values,
-                  state.config
+                  state.config,
+                  state.registeredComponents
                 )
               }))
             }

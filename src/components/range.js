@@ -1,5 +1,5 @@
 import React from "react";
-import registerComponent from "../registerComponent";
+
 import PropTypes from "prop-types";
 
 const Range = ({ value = "", updateValue = () => {} }) => {
@@ -26,23 +26,21 @@ Range.propTypes = {
   updateValue: PropTypes.func
 };
 
-export default () => {
-  registerComponent({
-    name: "Range",
-    component: Range,
-    outputs: [
-      { id: "rangeValue", title: "Value of the component", type: "Number" }
-    ],
-    inputs: [],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
+export default {
+  name: "Range",
+  component: Range,
+  outputs: [
+    { id: "rangeValue", title: "Value of the component", type: "Number" }
+  ],
+  inputs: [],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ]
-  });
+    }
+  ]
 };

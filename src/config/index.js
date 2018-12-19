@@ -1,11 +1,16 @@
 import React from "react";
 import DiagramContext from "../helpers/diagramContext";
-import { registeredComponents } from "../registerComponent";
 
 const Config = () => {
   return (
     <DiagramContext.Consumer>
-      {({ selectedComponent, components, config, setConfig }) => {
+      {({
+        selectedComponent,
+        components,
+        config,
+        setConfig,
+        registeredComponents
+      }) => {
         const comp = components.find(s => s.id === selectedComponent);
         const compDef = registeredComponents.find(
           c => c.name === comp.component.name

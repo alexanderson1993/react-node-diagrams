@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import registerComponent from "../registerComponent";
+
 import PropTypes from "prop-types";
 
 function lerp(v0, v1, t) {
@@ -52,31 +52,29 @@ Lerp.propTypes = {
   updateValue: PropTypes.func
 };
 
-export default () => {
-  registerComponent({
-    name: "Lerp",
-    component: Lerp,
-    outputs: [{ id: "output", title: "Output of the Lerp", type: "Number" }],
-    inputs: [
-      {
-        id: "duration",
-        title: "Lerp duration in ms (1000ms default)",
-        type: "Number",
-        color: "yellow"
-      },
-      {
-        id: "value1",
-        title: "Starting Value",
-        type: "Number",
-        color: "#f86745"
-      },
-      {
-        id: "value2",
-        title: "Ending Value",
-        type: "Number",
-        color: "#F81543"
-      }
-    ],
-    config: []
-  });
+export default {
+  name: "Lerp",
+  component: Lerp,
+  outputs: [{ id: "output", title: "Output of the Lerp", type: "Number" }],
+  inputs: [
+    {
+      id: "duration",
+      title: "Lerp duration in ms (1000ms default)",
+      type: "Number",
+      color: "yellow"
+    },
+    {
+      id: "value1",
+      title: "Starting Value",
+      type: "Number",
+      color: "#f86745"
+    },
+    {
+      id: "value2",
+      title: "Ending Value",
+      type: "Number",
+      color: "#F81543"
+    }
+  ],
+  config: []
 };

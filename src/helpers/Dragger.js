@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { registeredComponents } from "../registerComponent";
 import styles from "../compStyles.css";
 import propTypes from "prop-types";
 import uuid from "./uuid";
@@ -55,6 +54,7 @@ export default class Dragger extends Component {
   render() {
     const {
       view: { scale = 1 },
+      registeredComponents,
       component
     } = this.props;
     const { position } = this.state;
@@ -68,7 +68,11 @@ export default class Dragger extends Component {
           }px) scale(${scale})`
         }}
       >
-        <Comp.component {...Comp} updateValue={() => {}} />
+        <Comp.component
+          {...Comp}
+          registeredComponents={registeredComponents}
+          updateValue={() => {}}
+        />
       </div>,
       document.body
     );

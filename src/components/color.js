@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ChromePicker } from "react-color";
 import PropTypes from "prop-types";
-import registerComponent from "../registerComponent";
 
 class Color extends Component {
   shouldComponentUpdate(nextProps) {
@@ -36,47 +35,45 @@ Color.propTypes = {
   updateValue: PropTypes.func
 };
 
-export default () => {
-  registerComponent({
-    name: "Color",
-    component: Color,
-    process: (comp, { red, green, blue }) => {
-      if (red || green || blue || red === 0 || green === 0 || blue === 0) {
-        return `rgb(${Math.round(red * 255) || 0}, ${Math.round(green * 255) ||
-          0}, ${Math.round(blue * 255) || 0})`;
-      }
-      return comp.value;
+export default {
+  name: "Color",
+  component: Color,
+  process: (comp, { red, green, blue }) => {
+    if (red || green || blue || red === 0 || green === 0 || blue === 0) {
+      return `rgb(${Math.round(red * 255) || 0}, ${Math.round(green * 255) ||
+        0}, ${Math.round(blue * 255) || 0})`;
+    }
+    return comp.value;
+  },
+  outputs: [{ id: "color", title: "Component Color Output", type: "Any" }],
+  inputs: [
+    {
+      id: "red",
+      title: "Red Color [0-255]",
+      type: "Number",
+      color: "rgba(255,0,0,0.5)"
     },
-    outputs: [{ id: "color", title: "Component Color Output", type: "Any" }],
-    inputs: [
-      {
-        id: "red",
-        title: "Red Color [0-255]",
-        type: "Number",
-        color: "rgba(255,0,0,0.5)"
-      },
-      {
-        id: "green",
-        title: "green Color [0-255]",
-        type: "Number",
-        color: "rgba(0,255,0,0.5)"
-      },
-      {
-        id: "blue",
-        title: "blue Color [0-255]",
-        type: "Number",
-        color: "rgba(0,0,255,0.5)"
+    {
+      id: "green",
+      title: "green Color [0-255]",
+      type: "Number",
+      color: "rgba(0,255,0,0.5)"
+    },
+    {
+      id: "blue",
+      title: "blue Color [0-255]",
+      type: "Number",
+      color: "rgba(0,0,255,0.5)"
+    }
+  ],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
-      }
-    ]
-  });
+    }
+  ]
 };

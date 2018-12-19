@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import registerComponent from "../registerComponent";
 
 const Input = props => {
   const { value = "", updateValue = () => {} } = props;
@@ -20,30 +19,26 @@ Input.propTypes = {
   updateValue: PropTypes.func
 };
 
-export default () => {
-  registerComponent({
-    name: "Input",
-    component: Input,
-    outputs: [
-      { id: "inputValue", title: "Value of the component", type: "Any" }
-    ],
-    inputs: [],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
-      },
-      {
-        id: "test",
-        title: "test",
-        props: {
-          type: "checkbox"
-        }
+export default {
+  name: "Input",
+  component: Input,
+  outputs: [{ id: "inputValue", title: "Value of the component", type: "Any" }],
+  inputs: [],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ]
-  });
+    },
+    {
+      id: "test",
+      title: "test",
+      props: {
+        type: "checkbox"
+      }
+    }
+  ]
 };

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import registerComponent from "../registerComponent";
 
 class Random extends Component {
   componentDidMount() {
@@ -30,30 +29,28 @@ Random.propTypes = {
   updateValue: PropTypes.func
 };
 
-export default () => {
-  registerComponent({
-    name: "Random",
-    component: Random,
-    category: "Generators",
-    inputs: [],
-    outputs: [{ id: "level", title: "Random Output", type: "Any" }],
-    config: [
-      {
-        id: "label",
-        title: "Label",
-        props: {
-          type: "text",
-          placeholder: "Appears above component"
-        }
-      },
-      {
-        id: "rate",
-        title: "Rate",
-        props: {
-          placeholder: "Milliseconds",
-          type: "number"
-        }
+export default {
+  name: "Random",
+  component: Random,
+  category: "Generators",
+  inputs: [],
+  outputs: [{ id: "level", title: "Random Output", type: "Any" }],
+  config: [
+    {
+      id: "label",
+      title: "Label",
+      props: {
+        type: "text",
+        placeholder: "Appears above component"
       }
-    ]
-  });
+    },
+    {
+      id: "rate",
+      title: "Rate",
+      props: {
+        placeholder: "Milliseconds",
+        type: "number"
+      }
+    }
+  ]
 };
