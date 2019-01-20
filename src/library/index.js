@@ -19,6 +19,12 @@ function renderComponent(c, startDragging) {
   );
 }
 
+const sorter = (a, b) => {
+  if (a.name > b.name) return 1;
+  if (b.name > a.name) return -1;
+  return 0;
+};
+
 const Library = ({ renderButtons }) => {
   return (
     <DiagramContext.Consumer>
@@ -44,6 +50,7 @@ const Library = ({ renderButtons }) => {
                   <div className={styles["grid"]}>
                     {registeredComponents
                       .filter(c => c.category === cat)
+                      .sort(sorter)
                       .map(c => renderComponent(c, startLibraryDrag))}
                   </div>
                 </details>
@@ -53,6 +60,7 @@ const Library = ({ renderButtons }) => {
                 <div className={styles["grid"]}>
                   {registeredComponents
                     .filter(c => !c.category)
+                    .sort(sorter)
                     .map(c => renderComponent(c, startLibraryDrag))}
                 </div>
               </details>

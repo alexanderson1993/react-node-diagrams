@@ -24,7 +24,6 @@ const Config = () => {
               const inputProps = {
                 [c.props.type === "checkbox" ? "checked" : "value"]: val
               };
-              console.log(inputProps, compConfig, c.id, compConfig[c.id], val);
               return (
                 <div key={c.id}>
                   <label>

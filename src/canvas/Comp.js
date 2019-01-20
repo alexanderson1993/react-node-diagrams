@@ -69,7 +69,6 @@ export default class Comp extends Component {
       (prev, [id, { current }]) => {
         if (!current) return prev;
         const rect = current.getBoundingClientRect();
-        console.log(x, rect.width / 2 + rect.left);
         return {
           ...prev,
           [id]: {
