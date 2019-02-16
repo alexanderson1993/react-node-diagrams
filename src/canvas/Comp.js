@@ -147,7 +147,9 @@ export default class Comp extends Component {
 
     return (
       <div
-        className={styles.comp}
+        className={`${RenderComp.locked ? "component-locked" : ""}${
+          styles.comp
+        }`}
         style={{
           transform: `translate(${x}px, ${y}px)`,
           position: "absolute",
