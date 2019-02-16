@@ -148,7 +148,11 @@ export default class Comp extends Component {
     return (
       <div
         className={styles.comp}
-        style={{ transform: `translate(${x}px, ${y}px)`, position: "absolute" }}
+        style={{
+          transform: `translate(${x}px, ${y}px)`,
+          position: "absolute",
+          pointerEvents: RenderComp.locked ? "none" : ""
+        }}
         onMouseDown={this.mouseDown}
       >
         {selected && (
