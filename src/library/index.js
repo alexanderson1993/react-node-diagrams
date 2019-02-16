@@ -49,7 +49,7 @@ const Library = ({ renderButtons }) => {
                   <summary>{cat}</summary>
                   <div className={styles["grid"]}>
                     {registeredComponents
-                      .filter(c => c.category === cat)
+                      .filter(c => c.category === cat && !c.hiddenInLibrary)
                       .sort(sorter)
                       .map(c => renderComponent(c, startLibraryDrag))}
                   </div>
@@ -59,7 +59,7 @@ const Library = ({ renderButtons }) => {
                 <summary>Misc.</summary>
                 <div className={styles["grid"]}>
                   {registeredComponents
-                    .filter(c => !c.category)
+                    .filter(c => !c.category && !c.hiddenInLibrary)
                     .sort(sorter)
                     .map(c => renderComponent(c, startLibraryDrag))}
                 </div>
