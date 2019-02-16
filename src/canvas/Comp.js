@@ -147,7 +147,7 @@ export default class Comp extends Component {
 
     return (
       <div
-        className={`${RenderComp.locked ? "component-locked" : ""}${
+        className={`${RenderComp.locked ? "component-locked" : ""} ${
           styles.comp
         }`}
         style={{
