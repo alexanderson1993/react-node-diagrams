@@ -13,7 +13,9 @@ const Config = () => {
       }) => {
         const comp = components.find(s => s.id === selectedComponent);
         const compDef = registeredComponents.find(
-          c => c.name === comp.component.name
+          c =>
+            c.objectKey === comp.component.name ||
+            c.name === comp.component.name
         );
         const compConfig = config[comp.id] || {};
         return (

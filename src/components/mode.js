@@ -33,6 +33,7 @@ Mode.propTypes = {
 
 export default {
   name: "Mode",
+  label: "Mode - Switch Between",
   component: Mode,
   outputs: [{ id: "modeValue", title: "Value of the component", type: "Any" }],
   inputs: [],

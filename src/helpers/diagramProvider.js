@@ -152,7 +152,7 @@ class DiagramProvider extends Component {
       );
     }
     const Comp = this.state.registeredComponents.find(
-      c => c.name === component
+      c => c.objectKey === component || c.name === component
     );
     if (!Comp) {
       throw new Error("Cannot drag a component that hasn't been registered.");

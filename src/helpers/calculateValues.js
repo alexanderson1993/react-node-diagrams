@@ -40,7 +40,9 @@ export default function calculateValues(
   function getComponentValue(component, node) {
     if (getValue(component.id, node)) return getValue(component.id, node);
     const comp = registeredComponents.find(
-      c => c.name === component.component.name
+      c =>
+        c.objectKey === component.component.name ||
+        c.name === component.component.name
     );
     if (!comp) return 0;
     const compConfig = config[comp.id];

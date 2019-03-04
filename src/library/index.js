@@ -8,20 +8,22 @@ function renderComponent(c, startDragging) {
   const Comp = c.component;
   return (
     <div
-      key={c.name}
+      key={c.objectKey || c.name}
       className={`${styles.comp} ${compStyles.comp}`}
-      data-component={c.name}
+      data-component={c.objectKey || c.name}
       onMouseDown={startDragging}
     >
-      <p>{c.name}</p>
+      <p>{c.label || c.name}</p>
       <Comp inputs={[]} updateValue={() => {}} />
     </div>
   );
 }
 
 const sorter = (a, b) => {
-  if (a.name > b.name) return 1;
-  if (b.name > a.name) return -1;
+  const aKey = a.objectKey || a.name;
+  const bKey = b.objectKey || b.name;
+  if (aKey > bKey) return 1;
+  if (bKey > aKey) return -1;
   return 0;
 };
 

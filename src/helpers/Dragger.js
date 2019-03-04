@@ -58,7 +58,9 @@ export default class Dragger extends Component {
       component
     } = this.props;
     const { position } = this.state;
-    const Comp = registeredComponents.find(c => c.name === component);
+    const Comp = registeredComponents.find(
+      c => c.objectKey === component || c.name === component
+    );
     return ReactDOM.createPortal(
       <div
         className={`${styles.comp} ${styles["dragging-comp"]}`}

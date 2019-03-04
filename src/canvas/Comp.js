@@ -17,7 +17,7 @@ export default class Comp extends Component {
     super(props);
     const { id, component, registeredComponents } = this.props;
     const RenderComp = registeredComponents.find(
-      c => c.name === component.name
+      c => c.objectKey === component.name || c.name === component.name
     );
     this.allRefs = {
       ...RenderComp.inputs.reduce(
@@ -142,7 +142,7 @@ export default class Comp extends Component {
       registeredComponents
     } = this.props;
     const RenderComp = registeredComponents.find(
-      c => c.name === component.name
+      c => c.objectKey === component.name || c.name === component.name
     );
 
     return (
