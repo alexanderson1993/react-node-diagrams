@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import styles from "./style.css";
 import compStyles from "../compStyles.css";
 import propTypes from "prop-types";
@@ -14,7 +14,7 @@ function renderComponent(c, startDragging) {
       onMouseDown={startDragging}
     >
       <p>{c.label || c.name}</p>
-      <Comp inputs={[]} updateValue={() => {}} />
+      {c.showInLibrary && <Comp inputs={[]} updateValue={() => {}} />}
     </div>
   );
 }
@@ -27,62 +27,93 @@ const sorter = (a, b) => {
   return 0;
 };
 
-const Library = ({ renderButtons }) => {
-  return (
-    <DiagramContext.Consumer>
-      {({
-        resetCanvas,
-        clearCanvas,
-        startLibraryDrag,
-        registeredComponents
-      }) => {
-        const categories = registeredComponents
-          .map(c => c.category)
-          // Remove Duplicates
-          .filter((c, i, a) => a.indexOf(c) === i)
-          // Filter out nulls
-          .filter(Boolean);
-        return (
-          <div className={styles["component-inner-container"]}>
-            <h2>Components</h2>
-            <div className={styles["component-holder"]}>
-              {categories.map(cat => (
-                <details key={`category-${cat}`}>
-                  <summary>{cat}</summary>
+class Library extends Component {
+  state = { search: "" };
+  render() {
+    const { renderButtons } = this.props;
+    const { search } = this.state;
+    return (
+      <DiagramContext.Consumer>
+        {({
+          resetCanvas,
+          clearCanvas,
+          startLibraryDrag,
+          registeredComponents
+        }) => {
+          const categories = registeredComponents
+            .map(c => c.category)
+            // Remove Duplicates
+            .filter((c, i, a) => a.indexOf(c) === i)
+            // Filter out nulls
+            .filter(Boolean);
+          return (
+            <div className={styles["component-inner-container"]}>
+              <h2>Components</h2>
+              <input
+                type="search"
+                placeholder="Search..."
+                value={search}
+                onChange={e => this.setState({ search: e.target.value })}
+              />
+              {search ? (
+                <div className={styles["component-holder"]}>
                   <div className={styles["grid"]}>
                     {registeredComponents
-                      .filter(c => c.category === cat && !c.hiddenInLibrary)
+                      .filter(
+                        c =>
+                          !c.hiddenInLibrary &&
+                          (c.name.match(new RegExp(search, "gi")) ||
+                            (c.label &&
+                              c.label.match(new RegExp(search, "gi"))))
+                      )
                       .sort(sorter)
                       .map(c => renderComponent(c, startLibraryDrag))}
                   </div>
-                </details>
-              ))}
-              <details>
-                <summary>Misc.</summary>
-                <div className={styles["grid"]}>
-                  {registeredComponents
-                    .filter(c => !c.category && !c.hiddenInLibrary)
-                    .sort(sorter)
-                    .map(c => renderComponent(c, startLibraryDrag))}
                 </div>
-              </details>
+              ) : (
+                <div className={styles["component-holder"]}>
+                  {categories.map(cat => (
+                    <details key={`category-${cat}`}>
+                      <summary>{cat}</summary>
+                      <div className={styles["grid"]}>
+                        {registeredComponents
+                          .filter(c => c.category === cat && !c.hiddenInLibrary)
+                          .sort(sorter)
+                          .map(c => renderComponent(c, startLibraryDrag))}
+                      </div>
+                    </details>
+                  ))}
+                  <details>
+                    <summary>Misc.</summary>
+                    <div className={styles["grid"]}>
+                      {registeredComponents
+                        .filter(c => !c.category && !c.hiddenInLibrary)
+                        .sort(sorter)
+                        .map(c => renderComponent(c, startLibraryDrag))}
+                    </div>
+                  </details>
+                </div>
+              )}
+              {renderButtons ? (
+                renderButtons(clearCanvas, resetCanvas)
+              ) : (
+                <Fragment>
+                  <button
+                    onClick={clearCanvas}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    Clear Canvas
+                  </button>
+                  <button onClick={resetCanvas}>Reset Pan</button>
+                </Fragment>
+              )}
             </div>
-            {renderButtons ? (
-              renderButtons(clearCanvas, resetCanvas)
-            ) : (
-              <Fragment>
-                <button onClick={clearCanvas} style={{ marginBottom: "10px" }}>
-                  Clear Canvas
-                </button>
-                <button onClick={resetCanvas}>Reset Pan</button>
-              </Fragment>
-            )}
-          </div>
-        );
-      }}
-    </DiagramContext.Consumer>
-  );
-};
+          );
+        }}
+      </DiagramContext.Consumer>
+    );
+  }
+}
 
 Library.propTypes = {
   renderButtons: propTypes.func

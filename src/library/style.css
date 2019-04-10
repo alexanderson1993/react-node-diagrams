@@ -67,7 +67,7 @@ button[disabled] {
 .component-holder summary {
   text-align: left;
 }
-.component-holder details .grid {
+.component-holder .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
